@@ -243,8 +243,8 @@ func main() {
 			}
 
 			w.Write([]string{
-				e.FullName(),
 				userID,
+				e.FullName(),
 				e.Mail,
 				e.GeoArea,
 				e.Location,
