@@ -82,7 +82,7 @@ func main() {
 			w.Write([]string{
 				userID,
 				e.FullName(),
-				e.Mail,
+				e.PreferredMail(),
 				e.JobTitle,
 				e.GeoArea,
 				e.Location,
