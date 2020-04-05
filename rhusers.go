@@ -7,7 +7,6 @@ import (
 	"encoding/csv"
 	"flag"
 	"fmt"
-	"io"
 	"log"
 	"os"
 	"strings"
@@ -47,15 +46,10 @@ func main() {
 
 	defer lsv.Disconnect()
 
-	r := bufio.NewReader(os.Stdin)
+	scanner := bufio.NewScanner(os.Stdin)
 
-	for {
-		uid, _, err := r.ReadLine()
-		if err == io.EOF {
-			break
-		} else if err != nil {
-			log.Fatal(err)
-		}
+	for scanner.Scan() {
+		uid := scanner.Text()
 
 		r, err := lsv.SearchEmployee(cmdFlags.SearchBaseDN, strings.ReplaceAll(cmdFlags.QueryString, "{}", string(uid)))
 		if err != nil {
@@ -91,5 +85,9 @@ func main() {
 		}
 
 		w.Flush()
+	}
+
+	if err := scanner.Err(); err != nil {
+		log.Fatalln("failed reading from standard input:", err)
 	}
 }
