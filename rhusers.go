@@ -29,10 +29,10 @@ func init() {
 func employeeStringSlice(e *Employee) []string {
 	userID := ""
 
-	if cmdFlags.GSheetsFormat && e.UserID != "" {
-		userID = fmt.Sprintf("=HYPERLINK(\"%s\",\"%s\")", e.RoverProfileLink(), e.UserID)
+	if cmdFlags.GSheetsFormat && e.UserID.Link != nil {
+		userID = fmt.Sprintf("=HYPERLINK(\"%s\",\"%s\")", e.UserID.Link, e.UserID)
 	} else {
-		userID = e.UserID
+		userID = e.UserID.String()
 	}
 
 	return []string{
@@ -86,7 +86,7 @@ func main() {
 		}
 
 		for _, e := range result {
-			w.Write(employeeStringSlice(&e))
+			w.Write(employeeStringSlice(e))
 		}
 
 		w.Flush()
