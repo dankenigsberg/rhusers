@@ -6,11 +6,16 @@
 
 Parameters:
 
-    $ rhusers -h
-    Usage of rhusers:
-      -g	google sheets format
-      -t	tab-separated output format
+    $ ./rhusers  -h
+    Usage of ./rhusers:
+      -b string
+                base dn for search queries (default "ou=users,dc=redhat,dc=com")
+      -g        google sheets format
+      -q string
+                ldap query string (default "(uid={})")
+      -s string
+                ldap server address and port
 
 Example:
 
-    $ echo fsimonce | rhusers -t -g
+    $ echo fsimonce | rhusers -g
